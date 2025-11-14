@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Simple Shop (Demo)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* Simple clean styles */
+    :root { --accent:#2563eb; --muted:#6b7280; }
+    body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f3f4f6; color:#111827; }
+    header{ background:linear-gradient(90deg,var(--accent),#0ea5a3); color:white; padding:12px 20px; }
+    .container{ max-width:1000px; margin:18px auto; padding:0 14px; }
+    nav a{ color:white; margin-right:14px; text-decoration:none; font-weight:600; }
+    .top-right{ float:right; color:white; }
+    .card{ background:white; border-radius:8px; padding:14px; box-shadow:0 6px 18px rgba(2,6,23,0.08); margin-bottom:14px; }
+    .grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+    img.prod { width:100%; height:150px; object-fit:cover; border-radius:6px; }
+    label{ font-weight:600; font-size:0.9rem; }
+    input, textarea, select { width:100%; padding:8px; margin-top:6px; border-radius:6px; border:1px solid #e5e7eb; box-sizing:border-box; }
+    button{ background:var(--accent); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+    .muted{ color:var(--muted); font-size:0.9rem; }
+    .link-btn{ background:transparent; color:var(--accent); border:1px solid var(--accent); padding:6px 8px; border-radius:6px; }
+    .row{ display:flex; gap:8px; align-items:center; }
+    footer{ text-align:center; margin:30px 0 80px; color:var(--muted); }
+    .small{ font-size:0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" data-view="home" class="nav-link">Home</a>
+      <a href="#" data-view="products" class="nav-link">Products</a>
+      <a href="#" data-view="orders" class="nav-link">Orders</a>
+      <a href="#" data-view="wishlist" class="nav-link">Wishlist</a>
+      <a href="#" data-view="support" class="nav-link">Customer Care</a>
+      <a href="#" data-view="reports" class="nav-link">Reports</a>
+      <span class="top-right" id="auth-area">
+        <a href="#" data-view="login" style="color:white">Login</a> |
+        <a href="#" data-view="register" style="color:white">Register</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Home -->
+  <section id="view-home" class="view">
+    <div class="card">
+      <h1>Simple Shop — Demo</h1>
+      <p class="muted">A small student-friendly e-commerce demo. Use the menu to navigate. Data is saved in your browser (localStorage).</p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="view-products" class="view" style="display:none">
+    <div class="card">
+      <h2>Products</h2>
+      <div id="products-list" class="grid"></div>
+    </div>
+  </section>
+
+  <!-- Product Detail (reviews) -->
+  <section id="view-product" class="view" style="display:none">
+    <div class="card" id="product-detail"></div>
+  </section>
+
+  <!-- Register -->
+  <section id="view-register" class="view" style="display:none">
+    <div class="card" style="max-width:560px">
+      <h2>Register</h2>
+      <form id="form-register">
+        <div><label>Name</label><input id="reg-name" required /></div>
+        <div><label>Email</label><input id="reg-email" type="email" required /></div>
+        <div><label>Password (min 6 chars)</label><input id="reg-pass" type="password" minlength="6" required /></div>
+        <div style="margin-top:10px"><button type="submit">Create account</button></div>
+      </form>
+      <div id="reg-msg" class="muted small" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section id="view-login" class="view" style="display:none">
+    <div class="card" style="max-width:520px">
+      <h2>Login</h2>
+      <form id="form-login">
+        <div><label>Email</label><input id="log-email" type="email" required /></div>
+        <div><label>Password</label><input id="log-pass" type="password" required /></div>
+        <div style="margin-top:10px"><button type="submit">Login</button></div>
+      </form>
+      <div id="log-msg" class="muted small" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- Orders -->
+  <section id="view-orders" class="view" style="display:none">
+    <div class="card">
+      <h2>Orders</h2>
+      <div id="orders-list"></div>
+    </div>
+  </section>
+
+  <!-- Wishlist -->
+  <section id="view-wishlist" class="view" style="display:none">
+    <div class="card">
+      <h2>Wishlist</h2>
+      <div id="wishlist-list"></div>
+    </div>
+  </section>
+
+  <!-- Customer Care -->
+  <section id="view-support" class="view" style="display:none">
+    <div class="card" style="max-width:720px">
+      <h2>Customer Care</h2>
+      <form id="form-support">
+        <div><label>Your message</label><textarea id="support-msg" rows="5" required></textarea></div>
+        <div style="margin-top:10px"><button type="submit">Send</button></div>
+      </form>
+      <div id="support-res" class="muted small" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- Reports -->
+  <section id="view-reports" class="view" style="display:none">
+    <div class="card">
+      <h2>Reports</h2>
+      <div class="row" style="justify-content:space-between">
+        <div class="muted" id="reports-summary"></div>
+        <div><button id="download-csv" class="link-btn">Downloa
